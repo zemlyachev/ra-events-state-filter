@@ -1,27 +1,16 @@
 import PropTypes from "prop-types";
-import { nanoid } from "nanoid";
 
-function ProjectList({ selected, projects }) {
-  let filtredProjects = projects.filter(
-    (item) => item.category === selected || selected === "All"
-  );
-
+function ProjectList({ projects }) {
   return (
     <div className="projectlist">
-      {filtredProjects.map((item) => (
-        <img
-          className="projectlist-item"
-          src={item.img}
-          alt={item.category}
-          key={nanoid()}
-        />
+      {projects.map((item) => (
+        <img className="projectlist-item" src={item.img} alt={item.category} />
       ))}
     </div>
   );
 }
 
 ProjectList.propTypes = {
-  selected: PropTypes.string.isRequired,
   projects: PropTypes.arrayOf(
     PropTypes.shape({
       img: PropTypes.string.isRequired,

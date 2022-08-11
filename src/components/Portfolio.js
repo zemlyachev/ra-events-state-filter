@@ -1,27 +1,42 @@
-import { useState } from "react";
+import { Component } from "react";
 import Toolbar from "./Toolbar";
 import ProjectList from "./ProjectList";
 import images from "../img/images";
 
-function Portfolio() {
-  const filtres = ["All", "Websites", "Flayers", "Business Cards"];
-  const [selected, setSelected] = useState("All");
+class Portfolio extends Component {
+  constructor(props) {
+    super(props);
+    this.filtres = ["All", "Websites", "Flayers", "Business Cards"];
+    this.state = {
+      selectedFilter: "All",
+    };
 
-  const onSelectFilter = (filter) => {
-    setSelected(() => filter);
+    this.handleSelectFilter = this.handleSelectFilter.bind(this);
+  }
+
+  handleSelectFilter(filter) {
     console.log(filter);
-  };
+    this.setState({ selectedFilter: filter });
+  }
 
-  return (
-    <div className="App">
-      <Toolbar
-        filters={filtres}
-        selected={selected}
-        onSelectFilter={onSelectFilter}
-      />
-      <ProjectList selected={selected} projects={images} />
-    </div>
-  );
+  render() {
+    this.filtredProjects = images.filter(
+      (item) =>
+        this.state.selectedFilter === item.category ||
+        this.state.selectedFilter === "All"
+    );
+
+    return (
+      <div className={"portfolio-container"}>
+        <Toolbar
+          filters={this.filtres}
+          selected={this.state.selectedFilter}
+          onSelectFilter={this.handleSelectFilter}
+        />
+        <ProjectList projects={this.filtredProjects} />
+      </div>
+    );
+  }
 }
 
 export default Portfolio;

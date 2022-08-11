@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { nanoid } from "nanoid";
 
 function Toolbar({ filters, selected, onSelectFilter }) {
   return (
@@ -8,11 +7,7 @@ function Toolbar({ filters, selected, onSelectFilter }) {
         const className =
           filter === selected ? "toolbar-item selected" : "toolbar-item";
         return (
-          <li
-            key={nanoid()}
-            className={className}
-            onClick={() => onSelectFilter(filter)}
-          >
+          <li className={className} onClick={() => onSelectFilter(filter)}>
             {" "}
             {filter}{" "}
           </li>
@@ -23,8 +18,8 @@ function Toolbar({ filters, selected, onSelectFilter }) {
 }
 
 Toolbar.propTypes = {
-  selected: PropTypes.string.isRequired,
   filters: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selected: PropTypes.string.isRequired,
   onSelectFilter: PropTypes.func.isRequired,
 };
 
